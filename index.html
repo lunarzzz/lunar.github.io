@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="luanr">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/default-avatar.jpg">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<link rel="stylesheet" href="/css/highlight.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="fullpage" class="mobile-nav-right">
+    
+      <div id="wrapper" title="图片来自网络">
+    
+    
+      <header id="header">
+  <div id="nav-toggle" class="nav-toggle"></div>
+  <div class="head-box global-width">
+    <nav class="nav-box nav-right">
+      
+        <a class="nav-item" href="/" title
+        
+        >首页</a>
+      
+        <a class="nav-item" href="/archives" title
+        
+        >归档</a>
+      
+    </nav>
+  </div>
+</header>
+      <div id="middlecontent" title class="global-width sidebar-right">
+        <section id="main">
+  
+    <article id="post-2018-12-07-Mac安装Kubernete环境" class="article global-container article-type-post" itemscope itemprop="blogPost">
+  
+    <header class="article-header">
+      
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/15/2018-12-07-Mac%E5%AE%89%E8%A3%85Kubernete%E7%8E%AF%E5%A2%83/">Mac中安装Kubernete </a>
+    </h1>
+  
+
+    </header>
+  
+  <div class="article-meta">
+    <a href="/2020/04/15/2018-12-07-Mac%E5%AE%89%E8%A3%85Kubernete%E7%8E%AF%E5%A2%83/" class="article-date">
+  <time datetime="2020-04-15T07:46:58.300Z" itemprop="datePublished">2020-04-15</time>
+</a>
+    
+    
+  </div>
+  
+
+  <div class="article-inner">
+    
+    <div class="article-content article-content-cloud" itemprop="articleBody">
+      
+        <h2 id="Guide"><a href="#Guide" class="headerlink" title="Guide"></a>Guide</h2><p>K8s由多个部分组成minikube为主master，kubectl为Rest client，kubernete依赖于容器环境，以及VM，所以我们需要先安装Docker环境以及VM</p>
+<ul>
+<li>Homebrew</li>
+<li>Docker for Mac</li>
+<li>Minikube</li>
+<li>virtualbox</li>
+<li>Kubectl</li>
+</ul>
+<h2 id="Step-1-Homebrew"><a href="#Step-1-Homebrew" class="headerlink" title="Step 1 Homebrew"></a>Step 1 Homebrew</h2><p>首先安装<a href="https://brew.sh/" target="_blank" rel="noopener">Homebrew</a>，和<a href="https://caskroom.github.io/" target="_blank" rel="noopener">Homebrew Cask</a></p>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="SHELL"><figure class="iseeu highlight /shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> brew tap caskroom/cask</span></span><br></pre></td></tr></table></figure></div>
+
+<h2 id="Step-2-Docker"><a href="#Step-2-Docker" class="headerlink" title="Step 2 Docker"></a>Step 2 Docker</h2><p>安装<a href="https://docs.docker.com/docker-for-mac/install/" target="_blank" rel="noopener">Docker for Mac</a>.通过官方Dmg安装文件安装。</p>
+<h2 id="Step-3-VM"><a href="#Step-3-VM" class="headerlink" title="Step 3 VM"></a>Step 3 VM</h2><p>安装<a href="https://www.virtualbox.org/" target="_blank" rel="noopener">VirtualBox for Mac</a>,同样可以通过<code>Homebrew</code>来安装</p>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="SHELL"><figure class="iseeu highlight /shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> brew cask install virtualbox</span></span><br></pre></td></tr></table></figure></div>
+
+<p> 如果你提示<code>Warning: Cask &#39;virtualbox&#39; is already installed</code>已经安装过，可以选择重新安装</p>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="SHELL"><figure class="iseeu highlight /shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> brew cask reinstall virtualbox</span></span><br></pre></td></tr></table></figure></div>
+
+<p>如果提示<code>Warning! Found the following active VirtualBox processes:</code>表示<code>Virtual Box</code>正在运行, 可以<code>kill</code>掉相应的进程然后进行重新安装</p>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="SHELL"><figure class="iseeu highlight /shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">kill</span> first_column_number (first_column_number)</span></span><br></pre></td></tr></table></figure></div>
+
+<h2 id="Step-4-Minikube"><a href="#Step-4-Minikube" class="headerlink" title="Step 4 Minikube"></a>Step 4 Minikube</h2><p>可以通过官方的<a href="https://github.com/kubernetes/minikube/releases" target="_blank" rel="noopener">MinikubeRelease</a>文件安装,也可以通过以下命令安装</p>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="SHELL"><figure class="iseeu highlight /shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.27.0/minikube-darwin-amd64 &amp;&amp;\</span></span><br><span class="line">      chmod +x minikube &amp;&amp;\</span><br><span class="line">      sudo mv minikube /usr/local/bin/</span><br></pre></td></tr></table></figure></div>
+
+<p>安装完成后可以通过运行,由于国内网络坏境需要翻墙才能下载镜像,可以手动下载，然后在启动minikube </p>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="SHELL"><figure class="iseeu highlight /shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> minikube start</span></span><br></pre></td></tr></table></figure></div>
+
+<p>启动<code>minikube</code>, 运行<code>$ minikube api-version</code>可以看到版本列表表示安装正确.</p>
+<h2 id="Step-5-Kubectl"><a href="#Step-5-Kubectl" class="headerlink" title="Step 5 Kubectl"></a>Step 5 Kubectl</h2><p><code>kubectl</code> 作为操作kebectl对象的Rest API client，通过以下命令安装</p>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="SHELL"><figure class="iseeu highlight /shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> brew install kubectl</span></span><br></pre></td></tr></table></figure></div>
+
+<h2 id="Step-6-对于国内网络环境"><a href="#Step-6-对于国内网络环境" class="headerlink" title="Step 6 对于国内网络环境"></a>Step 6 对于国内网络环境</h2><p>如果你的系统pod无法启动，可以通过<code>kubectl describe pod [podname] -n kube-system</code>查看具体的原因，对于无法加载的镜像，下载阿里云仓库的镜像到本地，docker会优先拉取本地的镜像</p>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="SHELL"><figure class="iseeu highlight /shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> minikube ssh <span class="comment"># 先ssh到minikube</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker pull registry.cn-hangzhou.aliyuncs.com/[镜像名] <span class="comment"># 注意这里是镜像名是不包含仓库的名字，从阿里云的仓库中加载镜像</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker tag registry.cn-hangzhou.aliyuncs.com/[镜像名] [仓库名]/[镜像名]</span></span><br></pre></td></tr></table></figure></div>
+
+<p>拉取所有所需的镜像到本地后就可以查看一下pod，如果均启动成功就Okey. </p>
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="SHELL"><figure class="iseeu highlight /shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> kubectl get pods --all-namespaces</span></span><br><span class="line">NAMESPACE     NAME                                    READY     STATUS    RESTARTS   AGE</span><br><span class="line">kube-system   kube-addon-manager-minikube             1/1       Running   0          2d</span><br><span class="line">kube-system   kube-dns-54cccfbdf8-v8fgh               3/3       Running   3          1d</span><br><span class="line">kube-system   kubernetes-dashboard-77d8b98585-9gnh9   1/1       Running   0          1d</span><br><span class="line">kube-system   storage-provisioner                     1/1       Running   0          2d</span><br></pre></td></tr></table></figure></div>
+
+<div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="SHELL"><figure class="iseeu highlight /shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> minikube dashboard <span class="comment"># 启动minikube自带的dashboard</span></span></span><br></pre></td></tr></table></figure></div>
+
+<h2 id="Step-7-Sample"><a href="#Step-7-Sample" class="headerlink" title="Step 7 Sample"></a>Step 7 Sample</h2><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="SHELL"><figure class="iseeu highlight /shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.4 --port=8080</span></span><br><span class="line">deployment "hello-minikube" created</span><br><span class="line"><span class="meta">$</span><span class="bash"> kubectl expose deployment hello-minikube --<span class="built_in">type</span>=NodePort</span></span><br><span class="line">service "hello-minikube" exposed</span><br><span class="line"><span class="meta">$</span><span class="bash"> kubectl get pod</span></span><br><span class="line">NAME                              READY     STATUS              RESTARTS   AGE</span><br><span class="line">hello-minikube-3383150820-vctvh   1/1       ContainerCreating   0          3s</span><br><span class="line"><span class="meta">$</span><span class="bash"> minikube service hello-minikube --url <span class="comment"># 获取service暴露的url</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 由于minikube自身是不带Loadbalance模块的，所以是无法暴露外部ip，只能通过局域网ip访问</span></span><br></pre></td></tr></table></figure></div>
+
+<h2 id="Come-Together"><a href="#Come-Together" class="headerlink" title="Come Together"></a>Come Together</h2><p> 现在可以尽情的享受Kubernete了。</p>
+
+      
+    </div>
+    
+  </div>
+  
+  
+</article>
+
+  
+    <article id="post-hello-world" class="article global-container article-type-post" itemscope itemprop="blogPost">
+  
+    <header class="article-header">
+      
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/15/hello-world/">Hello World</a>
+    </h1>
+  
+
+    </header>
+  
+  <div class="article-meta">
+    <a href="/2020/04/15/hello-world/" class="article-date">
+  <time datetime="2020-04-15T07:42:04.477Z" itemprop="datePublished">2020-04-15</time>
+</a>
+    
+    
+  </div>
+  
+
+  <div class="article-inner">
+    
+    <div class="article-content article-content-cloud" itemprop="articleBody">
+      
+        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="BASH"><figure class="iseeu highlight /bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure></div>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="BASH"><figure class="iseeu highlight /bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure></div>
+
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="BASH"><figure class="iseeu highlight /bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure></div>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><div class="highlight-box"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="BASH"><figure class="iseeu highlight /bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure></div>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+  
+</article>
+
+  
+
+
+
+</section>
+        <aside id="sidebar">
+  
+    <div class="widget-box">
+  <div class="avatar-box">
+    <img class="avatar" src="/images/default-avatar.jpg" title="图片来自网络"></img>
+    <h3 class="avatar-name">
+      
+        一路烟霞
+      
+    </h3>
+    <p class="avatar-slogan">
+      特别耐撕的小前端，资深的打酱油攻城狮。
+    </p>
+  </div>
+</div>
+
+
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/04/15/2018-12-07-Mac%E5%AE%89%E8%A3%85Kubernete%E7%8E%AF%E5%A2%83/">Mac中安装Kubernete </a>
+          </li>
+        
+          <li>
+            <a href="/2020/04/15/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+      <div class="widget-box">
+    <h3 class="widget-title">友链</h3>
+    <div class="widget">
+      
+        <a style="display: block;" href="https://yiluyanxia.github.io/" title target='_blank'
+        >一路眼瞎</a>
+      
+    </div>
+  </div>
+
+  
+</aside>
+      </div>
+      <footer id="footer">
+  <div class="foot-box global-width">
+    &copy; 2020 luanr &nbsp;&nbsp;
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    &nbsp;|&nbsp;主题 <a href="https://github.com/yiluyanxia/hexo-theme-antiquity" target="_blank" rel="noopener">antiquity</a>
+    <br>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">不蒜子告之   阁下是第<span id="busuanzi_value_site_pv"></span>个访客</span>
+  </div>
+</footer>
+      <script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script>
+if (!window.jQuery) {
+var script = document.createElement('script');
+script.src = "/js/jquery-2.0.3.min.js";
+document.body.write(script);
+}
+</script>
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+    </div>
+    <nav id="mobile-nav" class="mobile-nav-box">
+  <div class="mobile-nav-img mobile-nav-top"></div>
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+  <div class="mobile-nav-img  mobile-nav-bottom"></div>
+</nav>    
+  </div>
+</body>
+</html>
